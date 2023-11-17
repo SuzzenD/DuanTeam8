@@ -1,6 +1,6 @@
 <?php
     function pdo_get_connection(){
-        $pdo = new PDO('mysql:host=localhost;dbname=bigshoes','root','123');
+        $pdo = new PDO('mysql:host=localhost;dbname=fegsys','root','mysql');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     }

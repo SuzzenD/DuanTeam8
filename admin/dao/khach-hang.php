@@ -1,5 +1,5 @@
 <?php
-    require_once ('pdo.php');
+    require_once ('./dao/pdo.php');
 
     function khach_hang_insert($ma_kh, $ho_ten, $mat_khau, $email, $dia_chi)
     {
