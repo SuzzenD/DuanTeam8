@@ -3,7 +3,7 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-3">
-                        <div class="footer-logo"><a href="#"><img src="images/image-removebg-preview (2).png" alt=""></a></div>
+                        <div class="footer-logo"><a href="#"><img src="images/logo/image-removebg-preview (2).png" alt=""></a></div>
                      </div>
                      <div class="col-md-3 col-sm-6">
                         <h4 class="title"><strong>Thông Tin</strong> Liên Hệ</h4>
