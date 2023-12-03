@@ -80,4 +80,12 @@
         return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%');
     }
 
+    // Trong file hang-hoa.php
+function hang_hoa_select_all_price_paging($start_index, $items_per_page) {
+    // Thêm LIMIT vào câu truy vấn để lấy chỉ số bắt đầu và số lượng sản phẩm
+    $sql = "SELECT * FROM hang_hoa ORDER BY don_gia LIMIT $start_index, $items_per_page";
+    // return select_list($sql);
+}
+
+
 ?>
