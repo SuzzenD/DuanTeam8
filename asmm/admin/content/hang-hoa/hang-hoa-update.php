@@ -48,7 +48,9 @@
 
                     <div class="form-group">
                         <label for="">Hình ảnh</label>
-                        <input type="file" class="form-control-file border" name="hinh">
+                        <!-- <input type="file" class="form-control-file border" name="hinh"> -->
+                        <input type="file" class="form-control-file border" name="hinh" id="hinhInput" accept="image/*" onchange="previewImage()">
+                        <img id="hinhPreview" class="img-preview" src="#" alt="Preview" style="display: none;">
                         <input name="hinh" type="hidden" value="<?= $hinh ?>"><br>
                         <img src="../../assets/images/products/<?= $hinh ?>" alt="" style="width:80px"><br>
                         (<?= $hinh ?>)
@@ -80,3 +82,37 @@
         </div>
     </div>
 </div>
+<script>
+    function previewImage() {
+        var input = document.getElementById('hinhInput');
+        var preview = document.getElementById('hinhPreview');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var image = new Image();
+
+                image.onload = function () {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+
+                    // Set the canvas dimensions to the resized image dimensions
+                    canvas.width = 150; // Set your desired width
+                    canvas.height = (canvas.width / image.width) * image.height;
+
+                    // Draw the resized image on the canvas
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+                    // Update the preview image source with the resized image data
+                    preview.src = canvas.toDataURL('image/jpeg'); // You can use 'image/png' if you prefer PNG format
+                    preview.style.display = 'block';
+                };
+
+                image.src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
