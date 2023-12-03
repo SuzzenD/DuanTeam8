@@ -21,7 +21,7 @@
                                             <p><strong>ĐĂNG NHẬP / ĐĂNG KÍ</strong></p>
                                         </a>
                                     <?php } else { ?>
-                                        <a href="../../asmm/tai-khoan/thong-tin-tk.php">
+                                        <a href="profile.php">
                                             <p><strong>Xin chào <?= $_SESSION['user']['ho_ten'] ?></strong></p>
                                         </a>
                                     <?php } ?>
@@ -32,8 +32,11 @@
                     <div class="clearfix"></div>
                     <div class="header_bottom">
                         <ul class="option">
-                            <li id="search" class="search">
-                                <form><input class="search-submit" type="submit" value=""><input class="search-input" placeholder="Nhập sản phẩm cần tìm..." type="text" value="" name="search"></form>
+                            <li class="search">
+                                <form action="search.php" method="post">
+                                    <button class="search-submit" type="submit" name="search-keywords"></button>
+                                    <input class="search-input" placeholder="Nhập sản phẩm cần tìm..." type="text" value="" name="keywords">
+                                </form>
                             </li>
                             <li class="option-cart">
                                 <?php
