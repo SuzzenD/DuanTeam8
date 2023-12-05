@@ -258,38 +258,39 @@
 <!-- Form without bootstrap -->
 <!-- CODE xử lý php -->
 <?php
-	require_once('../asmm/admin/dao/khach-hang.php');
+require_once('../asmm/admin/dao/khach-hang.php');
 
-	extract($_REQUEST);
-	$error_message = ""; // Biến để lưu trữ thông báo lỗi
-	$error_email = ""; // Bi
-	$error_pass = ""; // Bi
-	if (array_key_exists('btn_register', $_REQUEST)) {
-		// Kiểm tra tất cả các trường đã được điền đầy đủ
-		if (empty($ma_kh) || empty($ho_ten) || empty($mat_khau) || empty($email) || empty($dia_chi)) {
-			$error_message = "Vui lòng điền đầy đủ thông tin!";
-		} else {
-			// Kiểm tra độ dài mật khẩu
-			if (strlen($mat_khau) < 3) {
-				$error_pass = "Mật khẩu phải có ít nhất 3 ký tự!";
-			}
-			// Kiểm tra cú pháp email
-			elseif (!preg_match('/^[\w\-]+(\.[\w\-]+)*@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})$/', $email)) {
-				$error_email = "Vui lòng nhập đúng cú pháp email!";
-			} else {
-				// Mọi thông tin hợp lệ, thực hiện lưu trữ dữ liệu
-				khach_hang_insert($ma_kh, $ho_ten, $mat_khau, $email, $dia_chi);
+extract($_REQUEST);
+$error_message = ""; // Biến để lưu trữ thông báo lỗi
+$error_email = ""; // Bi
+$error_pass = ""; // Bi
+if (array_key_exists('btn_register', $_REQUEST)) {
+    // Kiểm tra tất cả các trường đã được điền đầy đủ
+    if (empty($ma_kh) || empty($ho_ten) || empty($mat_khau) || empty($email) || empty($dia_chi)) {
+        $error_message = "Vui lòng điền đầy đủ thông tin!";
+    } else {
+        // Kiểm tra độ dài mật khẩu
+        if (strlen($mat_khau) < 3) {
+            $error_pass = "Mật khẩu phải có ít nhất 3 ký tự!";
+        }
+        // Kiểm tra cú pháp email
+        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error_email = "Vui lòng nhập đúng cú pháp email!";
+        } else {
+            // Mọi thông tin hợp lệ, thực hiện lưu trữ dữ liệu
+            $hashed_password = password_hash($mat_khau, PASSWORD_DEFAULT);
+            khach_hang_insert($ma_kh, $ho_ten, $hashed_password, $email, $dia_chi);
 
-				echo '<script language="javascript">';
-				echo 'alert("Đăng ký thành công!");';
-				echo 'window.location.href = "login.php";'; // Chuyển hướng đến trang dang-nhap.php
-				echo '</script>';
+            echo '<script language="javascript">';
+            echo 'alert("Đăng ký thành công!");';
+            echo 'window.location.href = "login.php";'; // Chuyển hướng đến trang dang-nhap.php
+            echo '</script>';
 
-				exit; // Dừng thực hiện mã PHP để chuyển hướng ngay lập tức
-			}
-		}
-	}
-	?>
+            exit; // Dừng thực hiện mã PHP để chuyển hướng ngay lập tức
+        }
+    }
+}
+?>
 <div class="auth-wrapper">
     <div class="auth-container">
         <div class="auth-action-left">
