@@ -92,7 +92,7 @@ $khach_hang = new khach_hang();
 if ($ma_kh == "" || $mat_khau == "") {
     $_SESSION['messages'] = "Vui lòng nhập thông tin!";
 } else {
-    if ($ma_kh === "admin" && $mat_khau === "1") {
+    if ($ma_kh === "admin" && $mat_khau === "111") {
         $result = $khach_hang->userid($ma_kh, $mat_khau);
         $_SESSION['admin'] = $ma_kh;
         header('Location: index.php');
