@@ -277,7 +277,7 @@ session_start();
         } else {
             $user = khach_hang_select_by_id($ma_kh);
             if ($user) {
-                if ($user['mat_khau'] == $mat_khau) {
+                if (password_verify($mat_khau, $user['mat_khau'])) {
                     $_SESSION['user'] = $user;
                     header("location: ../shop/index.php");
                     exit;
