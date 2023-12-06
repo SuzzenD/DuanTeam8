@@ -29,7 +29,7 @@
                 <div class="special-item">
                   <div class="product-image">
                     <a href="details.php?ma_hh=<?= $ma_hh ?>&ma_loai=<?= $ma_loai ?>">
-                      <img src="../../asmm/css/admin/images/products/<?= $hinh ?>" alt="" />
+                      <img src="../asmm/css/admin/images/products/<?= $hinh ?>" alt="" />
                     </a>
                   </div>
                   <div class="product-info">
@@ -64,7 +64,7 @@
             <div class="products-details">
               <!-- CODE HIỂN THỊ CHI TIẾT SẢN PHẨM -->
               <?php
-              require_once('../../asmm/admin/dao/hang-hoa.php');
+              require_once('../asmm/admin/dao/hang-hoa.php');
               extract($_REQUEST);
               $items = hang_hoa_select_by_id($ma_hh);
               extract($items);

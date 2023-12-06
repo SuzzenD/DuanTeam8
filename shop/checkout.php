@@ -7,13 +7,13 @@
 
 <body>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="../../asmm/css/chi-tiet-sp/plugin/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="../asmm/css/chi-tiet-sp/plugin/js/owl.carousel.min.js"></script>
     <?php include "./layout/nav.php"; ?>
 
     <!-- CODE PHP THANH TOÁN GIỎ HÀNG -->
     <?php
-    require_once('../../asmm/admin/dao/khach-hang.php');
-    require_once('../../asmm/admin/dao/hang-hoa.php');
+    require_once('../asmm/admin/dao/khach-hang.php');
+    require_once('../asmm/admin/dao/hang-hoa.php');
 
     extract($_REQUEST);
 
@@ -124,7 +124,7 @@
     </div>
     <!-- KHI KHÁCH HÀNG TIẾN HÀNH ĐẶT HÀNG -->
     <?php
-    require_once('../../asmm/admin/dao/hoa-don.php');
+    require_once('../asmm/admin/dao/hoa-don.php');
     extract($_REQUEST);
     if (array_key_exists('dathang', $_REQUEST)) {
 

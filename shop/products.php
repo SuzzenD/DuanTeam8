@@ -46,7 +46,7 @@
                     extract($item);
                   ?> <li class="list-group-item" style="list-style: none;">
                   <div class="row">
-                    <div class="col-sm-4"><a href="details.php?ma_hh=<?= $ma_hh ?>&ma_loai=<?= $ma_loai ?>"><img style="width:80px;" src="../../asmm/css/admin/images/products/<?= $hinh ?>" alt=""></a></div>
+                    <div class="col-sm-4"><a href="details.php?ma_hh=<?= $ma_hh ?>&ma_loai=<?= $ma_loai ?>"><img style="width:80px;" src="../asmm/css/admin/images/products/<?= $hinh ?>" alt=""></a></div>
                     <div class="col-sm-8"><?= $ten_hh ?><br><br><b><?= number_format($don_gia - ($don_gia * $giam_gia / 100)) ?> VNĐ</b></div>
                   </div>
                   </li>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="pager">
                   <?php
-                  require_once('../../asmm/admin/dao/hang-hoa.php');
+                  require_once('../asmm/admin/dao/hang-hoa.php');
                   $items = hang_hoa_select_all_price();
                   $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
                   $items_per_page = 6; // Số sản phẩm muốn hiển thị trên mỗi trang
@@ -128,7 +128,7 @@
                     <div class="products">
                       <div class="thumbnail">
                         <a href="details.php?ma_hh=<?= $ma_hh ?>">
-                          <img src="../../asmm/css/admin/images/products/<?= $hinh ?>" alt="Product Name" />
+                          <img src="../asmm/css/admin/images/products/<?= $hinh ?>" alt="Product Name" />
                         </a>
                       </div>
                       <div class="productname"><?= $ten_hh ?></div>

@@ -7,7 +7,7 @@
 
 <body>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="../../asmm/css/chi-tiet-sp/plugin/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="../asmm/css/chi-tiet-sp/plugin/js/owl.carousel.min.js"></script>
     <?php include "./layout/nav.php" ?>
 
     <div class="container" style="margin-top: 80px;">
@@ -37,7 +37,7 @@
                             ?>
                                     <tr>
                                         <td><?= $name ?></td>
-                                        <td><img src="../../asmm/css/admin/images/products/<?= $hinh ?>" alt="" style="width:80px;"></td>
+                                        <td><img src="../asmm/css/admin/images/products/<?= $hinh ?>" alt="" style="width:80px;"></td>
                                         <td><?= number_format($price - ($price * ($giam_gia / 100))) ?> VNĐ</td>
                                         <td><input class="form-control" type="number" name='sl[<?= $ma_hh ?>]' value="<?= $sl ?>" style="width:54px;"></td>
                                         <td><?= number_format(($price - ($price * ($giam_gia / 100))) * $sl);
