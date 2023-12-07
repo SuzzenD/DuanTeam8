@@ -80,11 +80,12 @@
                         foreach ($items as $item) {
                            extract($item);
                         ?>
-                           <div class="col-md-3 col-sm-6">
+                           <div class="col-md-3 col-sm-6" >
                               <div class="products">
                                  <div class="thumbnail"><a href="details.php?ma_hh=<?= $ma_hh ?>"><img src="../../asmm/css/admin/images/products/<?= $hinh ?>" alt="Product Name"></a></div>
                                  <div class="productname"><?= $ten_hh ?></div>
                                  <h4 class="price"> <?= number_format($don_gia - $don_gia * ($giam_gia / 100)) ?> đ <span style="color:grey;font-size:14px;margin-left:40px;"><strike><?= number_format($don_gia) ?> VNĐ</strike></span></h4>
+                                 <div class="btn btn-warning" id="sale"><?= $giam_gia ?>%</div>
                                  <div class="button_group"><button class="button add-cart" type="button">Thêm Vào Giỏ</button></div>
                               </div>
                            </div>

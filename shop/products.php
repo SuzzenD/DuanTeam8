@@ -47,7 +47,8 @@
                   ?> <li class="list-group-item" style="list-style: none;">
                   <div class="row">
                     <div class="col-sm-4"><a href="details.php?ma_hh=<?= $ma_hh ?>&ma_loai=<?= $ma_loai ?>"><img style="width:80px;" src="../asmm/css/admin/images/products/<?= $hinh ?>" alt=""></a></div>
-                    <div class="col-sm-8"><?= $ten_hh ?><br><br><b><?= number_format($don_gia - ($don_gia * $giam_gia / 100)) ?> VNĐ</b></div>
+                    <div class="col-sm-7"><?= $ten_hh ?><br><br><b><?= number_format($don_gia - ($don_gia * $giam_gia / 100)) ?> VNĐ</b></div>
+                    <div class="btn btn-warning" id="sale"><?= $giam_gia ?>%</div>
                   </div>
                   </li>
                 <?php } ?>
@@ -59,12 +60,12 @@
                 <ul class="slides">
                   <li>
                     <a href="#">
-                      <img src="images/banner-01.jpg" alt="" />
+                      <img src="images/imgbanner1.jpg" alt="" />
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <img src="images/banner-02.jpg" alt="" />
+                      <img src="images/imgbanner4.jpg" alt="" />
                     </a>
                   </li>
                 </ul>
