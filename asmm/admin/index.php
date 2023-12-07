@@ -18,6 +18,7 @@
         include "./dao/hang-hoa.php";
         include "./dao/binh-luan.php";
         include "./dao/hoa-don.php";
+        include "./dao/sale.php";
         $action = "home";
         if (isset($_GET['act']))
             $action = $_GET['act'];
@@ -89,6 +90,9 @@
             case "thanhtoan":
                 include "../admin/content/hoa-don/thanh-toan-gio-hang.php";
                 break;
+            case'sale':
+                include "../admin/content/sale/sale.php";
+                break;    
         }
         ?>
     </div>

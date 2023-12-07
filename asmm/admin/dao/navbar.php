@@ -50,6 +50,9 @@
             <li>
                 <a href="index.php?act=hoadon"><i class="fa fa-edit"></i>HÓA ĐƠN</a>
             </li>
+            <li>
+                <a href="index.php?act=sale"><i class="fa fa-edit"></i>KHUYỄN MÃI</a>
+            </li>
         </ul>
     </div>
 
