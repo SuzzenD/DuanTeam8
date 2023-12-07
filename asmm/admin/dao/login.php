@@ -78,7 +78,7 @@
                 <div><?php echo $_SESSION['messages']; ?></div>
             <?php endif; ?>
             <button type="submit">Đăng nhập</button>
-            <a href="../../../asmm/trang-chinh/index.php"><p>Về Trang chủ</p></a>
+            <a href="../asmm/shop/index.php"><p>Về Trang chủ</p></a>
         </form>
     </div>
 </body>

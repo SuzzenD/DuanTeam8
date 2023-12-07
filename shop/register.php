@@ -341,7 +341,7 @@ if (array_key_exists('btn_register', $_REQUEST)) {
         </div>
         <div class="auth-action-right">
             <div class="auth-image">
-                <img src="./images/vector.jpg" alt="login">
+                <img src="./images/image-removebg-preview (3).png" alt="login">
             </div>
         </div>
     </div>
