@@ -343,7 +343,7 @@ session_start();
             </div>
             <div class="auth-action-right">
                 <div class="auth-image">
-                    <img src="./images/vector.jpg" alt="login">
+                    <img src="./images/image-removebg-preview (1).png" alt="login">
                 </div>
             </div>
         </div>
