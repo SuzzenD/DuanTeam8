@@ -254,6 +254,7 @@
             }
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <!-- Form without bootstrap -->
 <!-- CODE xử lý php -->
@@ -270,8 +271,8 @@ if (array_key_exists('btn_register', $_REQUEST)) {
         $error_message = "Vui lòng điền đầy đủ thông tin!";
     } else {
         // Kiểm tra độ dài mật khẩu
-        if (strlen($mat_khau) < 3) {
-            $error_pass = "Mật khẩu phải có ít nhất 3 ký tự!";
+        if (strlen($mat_khau) < 8) {
+            $error_pass = "Mật khẩu phải có ít nhất 8 ký tự!";
         }
         // Kiểm tra cú pháp email
         elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -291,6 +292,7 @@ if (array_key_exists('btn_register', $_REQUEST)) {
     }
 }
 ?>
+
 <div class="auth-wrapper">
     <div class="auth-container">
         <div class="auth-action-left">
@@ -314,7 +316,7 @@ if (array_key_exists('btn_register', $_REQUEST)) {
                     <span class="focus-input100" data-placeholder="&#xf18e;"></span>
                     <span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
                     <input type="text" class="auth-form-input" placeholder="Họ và tên" name="ho_ten">
-                    <span class="focus-input100" data-placeholder="&#xf18e;"></span>					<span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
+                    <span class="focus-input100" data-placeholder="&#xf18e;"></span> <span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
                     <div class="input-icon">
                         <input type="password" class="auth-form-input" placeholder="Mật khẩu" name="mat_khau">
                         <span class="focus-input100" data-placeholder="&#xf18e;"></span>
@@ -322,7 +324,7 @@ if (array_key_exists('btn_register', $_REQUEST)) {
                         <span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
                         <i class="fa fa-eye show-password"></i>
                     </div>
-                    <input type="email" class="auth-form-input" placeholder="Email" name="email">
+                    <input type="text" class="auth-form-input" placeholder="Email" name="email">
                     <span class="focus-input100" data-placeholder="&#xf18e;"></span>
                     <span style="color: indianred" class="error-message"><?php echo $error_email; ?></span>
                     <span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
@@ -330,7 +332,6 @@ if (array_key_exists('btn_register', $_REQUEST)) {
                     <span class="focus-input100" data-placeholder="&#xf18e;"></span>
                     <span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
                     <div class="footer-action">
-                        <!-- <input type="submit" value="Đăng ký" class="auth-submit"> -->
                         <button type="submit" name="btn_register" style="font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  background-color: #FE5454; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
                             Đăng ký
                         </button>
@@ -341,7 +342,7 @@ if (array_key_exists('btn_register', $_REQUEST)) {
         </div>
         <div class="auth-action-right">
             <div class="auth-image">
-                <img src="./images/image-removebg-preview (3).png" alt="login">
+                <img src="./images/vector.jpg" alt="login">
             </div>
         </div>
     </div>
@@ -361,6 +362,46 @@ if (array_key_exists('btn_register', $_REQUEST)) {
         });
     });
 </script>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#register-form input').on('input', function() {
+            validateInput($(this));
+        });
+
+        $('#register-form').submit(function(e) {
+            // Kiểm tra tất cả các trường khi người dùng nhấn nút Đăng ký
+            $('#register-form input').each(function() {
+                validateInput($(this));
+            });
+
+            // Nếu có trường không hợp lệ, ngăn chặn gửi biểu mẫu
+            if ($('#register-form .error-message:visible').length > 0) {
+                e.preventDefault();
+            }
+        });
+
+        function validateInput(input) {
+            var errorContainer = input.siblings('.error-message');
+            errorContainer.text('');
+
+            var value = input.val().trim();
+
+            if (value === '') {
+                errorContainer.text('Vui lòng điền thông tin.');
+            } else if (input.attr('name') === 'mat_khau' && value.length < 3) {
+                errorContainer.text('Mật khẩu phải có ít nhất 3 ký tự.');
+            } else if (input.attr('name') === 'email' && !isValidEmail(value)) {
+                errorContainer.text('Định dạng email không hợp lệ.');
+            }
+        }
+
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    });
+</script> -->
 </body>
 
 </html>
