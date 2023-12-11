@@ -42,6 +42,18 @@
         $sql = "UPDATE khach_hang SET mat_khau=? WHERE ma_kh=?";
         pdo_execute($sql, $mat_khau_moi, $ma_kh);
     }
+
+    function getUserEmail($email){
+        $sql = "SELECT * FROM khach_hang WHERE email='$email'";
+        $result = pdo_query_one($sql);
+        return $result;
+    }
+
+    function getPass($mat_khau, $email){
+        $sql = "UPDATE khach_hang SET mat_khau='$mat_khau' WHERE email='$email'";
+        $result = pdo_execute($sql);
+        return $result;
+    }
 ?>
 <?php
     class khach_hang{
@@ -61,5 +73,20 @@
         $result = pdo_query_one($sql);
         return $result;
     }
+    }
+?>
+<?php
+    class confirm{
+        function getUserEmail($email){
+            $sql = "SELECT * FROM khach_hang WHERE email='$email'";
+            $result = pdo_query_one($sql);
+            return $result;
+        }
+
+        function getPass($mat_khau, $email){
+            $sql = "UPDATE khach_hang SET mat_khau='$mat_khau' WHERE email='$email'";
+            $result = pdo_execute($sql);
+            return $result;
+        }
     }
 ?>
