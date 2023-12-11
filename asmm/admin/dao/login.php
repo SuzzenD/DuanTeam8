@@ -78,7 +78,9 @@
                 <div><?php echo $_SESSION['messages']; ?></div>
             <?php endif; ?>
             <button type="submit">Đăng nhập</button>
-            <a href="../asmm/shop/index.php"><p>Về Trang chủ</p></a>
+            <a href="../../../asmm/trang-chinh/index.php">
+                <p>Về Trang chủ</p>
+            </a>
         </form>
     </div>
 </body>
@@ -92,13 +94,11 @@ $khach_hang = new khach_hang();
 if ($ma_kh == "" || $mat_khau == "") {
     $_SESSION['messages'] = "Vui lòng nhập thông tin!";
 } else {
-    if ($ma_kh === "admin" && $mat_khau === "111") {
+    if ($khach_hang->checkUser($ma_kh, $mat_khau)) {
         $result = $khach_hang->userid($ma_kh, $mat_khau);
         $_SESSION['admin'] = $ma_kh;
         header('Location: index.php');
         exit();
-    } else {
-        $_SESSION['messages'] = "Bạn không phải là admin!";
     }
 }
 ?>
