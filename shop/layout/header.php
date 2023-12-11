@@ -9,8 +9,15 @@
 <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 <link href="css/sequence-looptheme.css" rel="stylesheet" media="all" />
 <link href="css/style.css" rel="stylesheet">
-  <style>
-    body {
-      overflow-x: hidden;
-    }
-  </style>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="Feng-Shop"
+  agent-id="dd8b32e9-2bbb-44c0-90d1-fb171585c13c"
+  language-code="vi"
+></df-messenger>
+<style>
+  body {
+    overflow-x: hidden;
+  }
+</style>
