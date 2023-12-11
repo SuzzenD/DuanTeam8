@@ -273,8 +273,12 @@ if (array_key_exists('btn_change', $_REQUEST)) {
     } else {
         $user = khach_hang_select_by_id($ma_kh);
         if ($user) {
-            if ($user['mat_khau'] == $mat_khau) {
-                khach_hang_change_password($ma_kh, $mat_khau2);
+            if (password_verify($mat_khau, $user['mat_khau'])) {
+                // Mã hóa mật khẩu mới
+                $hashed_password = password_hash($mat_khau2, PASSWORD_DEFAULT);
+                
+                // Cập nhật mật khẩu mới vào cơ sở dữ liệu
+                khach_hang_change_password($ma_kh, $hashed_password);
                 echo '<script language="javascript">';
                 echo 'alert("Bạn đã đổi mật khẩu thành công!")';
                 echo '</script>';
@@ -286,6 +290,7 @@ if (array_key_exists('btn_change', $_REQUEST)) {
         }
     }
 }
+
 ?>
 <div class="auth-wrapper">
     <div class="auth-container">
@@ -306,11 +311,6 @@ if (array_key_exists('btn_change', $_REQUEST)) {
                     <p class="auth-sgt">hoặc đăng ký bằng:</p>
                 </div> -->
                 <form class="login-form" method="post">
-                    <?php if (!empty($error_message)) : ?>
-                        <div class="alert alert-danger">
-                            <?php echo $error_message; ?>
-                        </div>
-                    <?php endif; ?>
                     <input type="text" class="auth-form-input" placeholder="Tên đăng nhập" name="ma_kh">
                     <span class="focus-input100" data-placeholder="&#xf18e;"></span>
                     <div class="input-icon">
@@ -325,6 +325,11 @@ if (array_key_exists('btn_change', $_REQUEST)) {
                         <input type="password" class="auth-form-input" placeholder="Xác nhận mật khẩu" name="mat_khau3">
                         <span class="focus-input100" data-placeholder="&#xf18e;"></span>
                     </div>
+                    <?php if (!empty($error_message)) : ?>
+                        <div style="color: #F44336;">
+                            <?php echo $error_message; ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="footer-action">
                         <!-- <input type="submit" value="Đăng ký" class="auth-submit"> -->
                         <button type="submit" name="btn_change" style="font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  background-color: #FE5454; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 0 auto">
@@ -332,13 +337,16 @@ if (array_key_exists('btn_change', $_REQUEST)) {
                         </button>
                     </div>
                     <br>
-                    <div class="text-center">
-                        <a class="txt1" href="register.php">
-                            Đăng ký?&nbsp;
-                        </a>OR
-                        <a class="txt1" href="login.php">
-                            &nbsp;Đăng nhập?
-                        </a>
+                    <hr>
+                    <div class="text-center p-t-90" style="text-align: center">
+                        <p>Bạn chưa có tài khoản?<a class="txt1" href="register.php">
+                                Đăng ký&nbsp;
+                            </a></p>
+                        <p>Bạn đã có tài khoản?
+                            <a class="txt1" href="login.php">
+                                &nbsp;Đăng nhập
+                            </a>
+                        </p>
                     </div>
                 </form>
             </div>
