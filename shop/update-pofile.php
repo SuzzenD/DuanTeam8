@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -149,22 +150,12 @@
     require_once('../asmm/admin/dao/khach-hang.php');
 
     extract($_REQUEST);
-    // if(array_key_exists('btn_update',$_REQUEST)){
-    //     khach_hang_update($ma_kh,$ho_ten,$mat_khau,$email,$dia_chi);
-    //     $_SESSION['user'] = khach_hang_select_by_id($ma_kh);
-    //     echo '<script language="javascript">';
-    //     echo 'alert("Cập nhật thành công!")';
-    //     echo '</script>';
-    // }else{
-    //     extract($_SESSION['user']);
-    // }
-
     $error_message = '';
 
     if (array_key_exists('btn_update', $_REQUEST)) {
         // Kiểm tra mật khẩu mới
-        if (strlen($mat_khau) < 3) {
-            $error_message = 'Mật khẩu phải từ 3 ký tự trở lên!';
+        if (strlen($mat_khau) < 8) {
+            $error_message = 'Mật khẩu phải từ 8 ký tự trở lên!';
         }
 
         // Kiểm tra địa chỉ email
@@ -173,7 +164,10 @@
         }
 
         if (empty($error_message)) {
-            khach_hang_update($ma_kh, $ho_ten, $mat_khau, $email, $dia_chi);
+            // Mã hóa mật khẩu mới
+            $hashed_password = password_hash($mat_khau, PASSWORD_DEFAULT);
+
+            khach_hang_update($ma_kh, $ho_ten, $hashed_password, $email, $dia_chi);
             $_SESSION['user'] = khach_hang_select_by_id($ma_kh);
             echo '<script language="javascript">';
             echo 'alert("Cập nhật thành công!")';
