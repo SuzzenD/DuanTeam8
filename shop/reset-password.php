@@ -1,3 +1,7 @@
+<?php
+ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -260,8 +264,8 @@
     <!-- Form without bootstrap -->
     <!-- CODE XỬ LÝ PHP -->
     <?php
-    require_once('../asmm/admin/dao/khach-hang.php');
-    extract($_REQUEST);
+    // require_once('../asmm/admin/dao/khach-hang.php');
+    // extract($_REQUEST);
     // if(array_key_exists('btn_forgot',$_REQUEST)){
 
     // 	$user = khach_hang_select_by_id($ma_kh);
@@ -282,25 +286,29 @@
     // 		}
     // }
 
-    $error_message = '';
+    // $error_message = '';
 
-    if (array_key_exists('btn_forgot', $_REQUEST)) {
-        if (empty($ma_kh) || empty($email)) {
-            $error_message = 'Vui lòng nhập thông tin để đăng nhập!';
-        } else {
-            $user = khach_hang_select_by_id($ma_kh);
-            if ($user) {
-                if ($user['email'] != $email) {
-                    $error_message = 'Bạn đã nhập sai địa chỉ email!';
-                } else {
-                    $mat_khau = $user['mat_khau'];
-                    $tai_khoan = $user['ma_kh'];
-                }
-            } else {
-                $error_message = 'Bạn đã nhập sai tên đăng nhập!';
-            }
-        }
-    }
+    // if (array_key_exists('btn_forgot', $_REQUEST)) {
+    //     if (empty($ma_kh) || empty($email)) {
+    //         $error_message = 'Vui lòng nhập thông tin để đăng nhập!';
+    //     } else {
+    //         $user = khach_hang_select_by_id($ma_kh);
+    //         if ($user) {
+    //             if ($user['email'] != $email) {
+    //                 $error_message = 'Bạn đã nhập sai địa chỉ email!';
+    //             } else {
+    //                 $mat_khau = $user['mat_khau'];
+    //                 $tai_khoan = $user['ma_kh'];
+    //             }
+    //         } else {
+    //             $error_message = 'Bạn đã nhập sai tên đăng nhập!';
+    //         }
+    //     }
+    // }
+
+    include '../mail/index.php';
+    include '../asmm/admin/dao/khach-hang.php';
+    // $confirm = new confirm();
     ?>
 
     <div class="auth-wrapper">
@@ -322,36 +330,66 @@
                         <p class="auth-sgt">hoặc đăng nhập bằng:</p>
                     </div> -->
                     <form class="login-form" method="post">
-                        <input type="text" class="auth-form-input" placeholder="Tên đăng nhập" name="ma_kh">
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                        <input type="email" class="auth-form-input" placeholder="Email" name="email">
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
 
-                        <?php if (!empty($error_message)) : ?>
-                            <span style="color: indianred" class="error-message"><?php echo $error_message; ?></span>
-                        <?php elseif (isset($mat_khau) && isset($tai_khoan)) : ?>
-                            <span style="color: indianred" class="success-message">Tên đăng nhập: <?php echo $tai_khoan; ?></span><br>
-                            <span style="color: indianred" class="success-message">Mật khẩu: <?php echo $mat_khau; ?></span>
-                        <?php endif; ?>
-                        <!-- <label class="btn active">
-                            <input type="checkbox" name="" checked>
-                            <i class="fa fa-square-o"></i><i class="fa fa-check-square-o"></i>
-                            <span> Nhớ mật khẩu</span>
-                        </label> -->
+                        <?php
+                        $mail = new Mailer();
+                        $confirm = new confirm();
+
+                        // Khai báo biến errors để lưu trữ các lỗi
+                        $errors = array();
+
+                        if (isset($_POST['submit'])) {
+                            $email = $_POST['email'];
+
+                            // Kiểm tra nếu email trống
+                            if ($email == '') {
+                                $errors['email'] = 'Vui lòng nhập thông tin!';
+                            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                // Kiểm tra nếu email không hợp lệ
+                                $errors['email'] = 'Email không hợp lệ!';
+                            } else {
+                                // Kiểm tra nếu email không tồn tại trong hệ thống
+                                $result = $confirm->getUserEmail($email);
+                                if (!$result) {
+                                    $errors['email'] = 'Email không tồn tại trong hệ thống!';
+                                }
+                            }
+
+                            // Nếu không có lỗi, thực hiện các thao tác khác
+                            if (empty($errors)) {
+                                $code = substr(rand(0, 999999999), 0, 6);
+                                $title = "Mã xác nhận";
+                                $content = "Mã xác nhận của bạn là: <span style='color: green'>" . $code . "</span>";
+                                $mail->sendMail($title, $content, $email);
+
+                                $_SESSION['mail'] = $email;
+                                $_SESSION['code'] = $code;
+                                header('location: confirm-pass.php');
+                                exit(); // Đảm bảo dừng thực thi ngay sau khi chuyển hướng
+                            }
+                        }
+                        ?>
+                        <!-- <input type="text" class="auth-form-input" placeholder="Tên đăng nhập" name="ma_kh">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span> -->
+                        <input type="email" class="auth-form-input" placeholder="Email" name="email">
+                        <span class="focus-input100" data-placeholder="&#xf207;"><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></span>
                         <div class="footer-action">
                             <!-- <input type="submit" value="Đăng nhập" class="auth-submit"> -->
-                            <button type="submit" name="btn_forgot" style="font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  background-color: #FE5454; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+                            <button type="submit" name="submit" style="font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  background-color: #FE5454; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin:0 auto">
                                 Xác nhận
                             </button>
                         </div>
                         <br>
-                        <div class="text-center p-t-90">
-                            <a class="txt1" href="register.php">
-                                Đăng ký?&nbsp;
-                            </a>OR
-                            <a class="txt1" href="login.php">
-                                &nbsp;Đăng nhập?
-                            </a>
+                        <hr>
+                        <div class="text-center p-t-90" style="text-align: center">
+                            <p>Bạn chưa có tài khoản?<a class="txt1" href="register.php">
+                                    Đăng ký&nbsp;
+                                </a></p>
+                            <p>Bạn đã có tài khoản?
+                                <a class="txt1" href="login.php">
+                                    &nbsp;Đăng nhập
+                                </a>
+                            </p>
                         </div>
                     </form>
                 </div>
